@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>ChatGPT Virtualizer</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+
+<body>
+  <header class="topbar">
+    <img class="logo-img" src="assets/icon.png" alt="ChatGPT Virtualizer" />
+    <div class="title">
+      <h1>ChatGPT Virtualizer</h1>
+      <p class="sub">Keep long threads snappy</p>
+    </div>
+    <a id="openShortcuts" class="toolbar-link" href="#" title="Manage keyboard shortcuts">Shortcuts</a>
+    <label class="switch" title="Enable on this tab">
+      <input id="enabled" type="checkbox" />
+      <span class="slider"></span>
+    </label>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>Behavior</h2>
+      <div class="row">
+        <label for="keepN" class="label">Keep last N turns</label>
+        <div class="field-inline">
+          <input id="keepN" type="number" min="0" step="1" inputmode="numeric" placeholder="8" />
+          <button id="btnApplyKeepN" class="btn btn-nowrap" type="button" title="Apply N to tail policy">Apply</button>
+          <span class="hint">Keeps only the last N turns</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Bulk actions</h2>
+      <div class="actions">
+        <button id="btnExpand" class="btn">
+          Expand all turns <span class="kbd">Ctrl/Cmd+Shift+9</span>
+        </button>
+        <button id="btnCollapseOlder" class="btn">
+          Collapse above viewport <span class="kbd">Ctrl/Cmd+Shift+8</span>
+        </button>
+      </div>
+
+      <div class="row compact">
+        <label for="beforeTarget" class="label">Collapse above…</label>
+        <div class="field-inline" style="width: 100%;">
+          <input id="beforeTarget" type="text" placeholder="#23 or data-turn-id" />
+          <button id="btnCollapseBeforeTarget" class="btn btn-nowrap">Collapse</button>
+        </div>
+      </div>
+
+      <p class="hint" style="margin-top:8px;">Actions target the active ChatGPT tab only.</p>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span class="foot-text">Tip: Shift-click a chevron to pin. Alt-click to remove the pin</span>
+  </footer>
+
+  <script type="module" src="popup.js"></script>
+</body>
+
+</html>
