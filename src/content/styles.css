@@ -1,0 +1,4 @@
+/* Applied when virtualization is enabled. Real rules come later. */
+:root[data-cgpt-virt="on"] {
+  /* Acts as a feature flag for upcoming CSS-based collapsed states. */
+}
