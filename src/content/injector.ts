@@ -1,44 +1,28 @@
 /**
- * Optional style injector for debug/experimentation.
- * Not required for normal operation (styles.css is loaded via manifest).
+ * Debug-only style injector.
+ * Keeps placeholders visually discoverable without heavy overlays or labels.
+ * Safe to call multiple times (idempotent).
  */
 
-let injected = false;
+const DEBUG_STYLE_ID = 'cgptv-debug-styles';
 
-/** Inject an additional debug stylesheet once (safe to call multiple times). */
 export function injectDebugStyles() {
-  if (injected) return;
-  injected = true;
-
-  const style = document.createElement("style");
-  style.id = "cgptv-debug-styles";
-  style.textContent = `
+	if (document.getElementById(DEBUG_STYLE_ID)) return;
+	const style = document.createElement('style');
+	style.id = DEBUG_STYLE_ID;
+	style.textContent = `
     :root[data-cgpt-virt="on"] .cgptv-placeholder {
-      outline: 1px dashed rgba(0,0,0,.25);
-      position: relative;
-      background-image: linear-gradient(
-        135deg,
-        rgba(0,0,0,.035) 25%,
-        transparent 25%,
-        transparent 50%,
-        rgba(0,0,0,.035) 50%,
-        rgba(0,0,0,.035) 75%,
-        transparent 75%,
-        transparent
-      );
-      background-size: 16px 16px;
+      background: rgba(120,120,120,0.08) !important;
     }
-    :root[data-cgpt-virt="on"] .cgptv-placeholder::after {
-      content: "detached";
-      position: absolute;
-      top: 4px;
-      right: 8px;
-      font: 10px/1 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
-      color: rgba(0,0,0,.45);
-      background: rgba(255,255,255,.6);
-      border-radius: 999px;
-      padding: 2px 6px;
+    :root[data-cgpt-virt="on"] .cgptv-placeholder::before {
+      opacity: 1 !important;
+    }
+    :root[data-cgpt-virt="on"] article[data-turn-id] {
+      position: relative;
+    }
+    :root[data-cgpt-virt="on"] .cgptv-btn.cgptv-toggle {
+      box-shadow: 0 0 0 1px rgba(0,0,0,0.15), 0 1px 2px rgba(0, 0, 0, 0.2);
     }
   `;
-  document.head.appendChild(style);
+	document.head.appendChild(style);
 }

@@ -1,17 +1,295 @@
-/* Base hook — toggled by content script. */
-:root[data-cgpt-virt="on"] {
-  /* Feature flag present when virtualization is running */
+/* ============================================================
+   ChatGPT Virtualizer — Professional Theme & Consistent Styling
+   ============================================================ */
+
+/* ------------------------------
+   Theme tokens (Dark baseline)
+   ------------------------------ */
+:root[data-cgpt-virt='on'] {
+	/* Surfaces & text */
+	--cgptv-surface-1: rgba(255, 255, 255, 0.05);
+	--cgptv-surface-1-hover: rgba(255, 255, 255, 0.08);
+	--cgptv-text: rgba(255, 255, 255, 0.9);
+	--cgptv-text-muted: rgba(255, 255, 255, 0.65);
+
+	/* Borders */
+	--cgptv-border: rgba(255, 255, 255, 0.12);
+	--cgptv-border-strong: rgba(255, 255, 255, 0.2);
+
+	/* Role accents (subtle chip tints) */
+	--cgptv-chip-assistant-bg: rgba(56, 189, 248, 0.14);
+	--cgptv-chip-assistant-bd: rgba(56, 189, 248, 0.38);
+	--cgptv-chip-assistant-tx: rgb(161, 231, 255);
+
+	--cgptv-chip-user-bg: rgba(34, 197, 94, 0.14);
+	--cgptv-chip-user-bd: rgba(34, 197, 94, 0.38);
+	--cgptv-chip-user-tx: rgb(187, 247, 208);
+
+	--cgptv-chip-system-bg: rgba(148, 163, 184, 0.16);
+	--cgptv-chip-system-bd: rgba(148, 163, 184, 0.38);
+	--cgptv-chip-system-tx: rgb(226, 232, 240);
+
+	--cgptv-chip-tool-bg: rgba(250, 204, 21, 0.16);
+	--cgptv-chip-tool-bd: rgba(250, 204, 21, 0.4);
+	--cgptv-chip-tool-tx: rgb(255, 229, 127);
+
+	--cgptv-chip-other-bg: rgba(148, 163, 184, 0.16);
+	--cgptv-chip-other-bd: rgba(148, 163, 184, 0.38);
+	--cgptv-chip-other-tx: rgb(203, 213, 225);
+
+	/* Chevron (toggle) states */
+	--cgptv-chev-bg: rgba(72, 225, 125, 0.18); /* attached (expanded) */
+	--cgptv-chev-fg: rgba(255, 255, 255);
+	--cgptv-chev-bg-hover: rgba(72, 225, 125, 0.26);
+
+	--cgptv-chev-detached-bg: rgba(56, 189, 248, 0.22); /* detached (collapsed) */
+	--cgptv-chev-detached-fg: rgba(235, 248, 255);
+	--cgptv-chev-detached-bg-hover: rgba(56, 189, 248, 0.3);
+
+	/* Layout */
+	--cgptv-line-width: 820px;
+	--cgptv-side-gap: clamp(16px, 6vw, 120px);
+	--cgptv-last-bottom-gap: clamp(72px, 10vh, 160px);
+	--cgptv-chevron-gap: 10px;
+
+	/* Sizing & rhythm */
+	--cgptv-radius: 12px;
+	--cgptv-radius-pill: 999px;
+	--cgptv-pad-y: 16px;
+	--cgptv-pad-x: 20px;
+	--cgptv-gap: 10px;
+
+	/* Typography */
+	--cgptv-font: 12px/1.2 ui-sans-serif, system-ui, -apple-system, Segoe UI,
+		Roboto, Arial;
+
+	/* Motion */
+	--cgptv-ease: 160ms ease;
 }
 
-/* Placeholder appearance for detached turns (kept conservative by default). */
-:root[data-cgpt-virt="on"] .cgptv-placeholder {
-  height: 64px; /* will be overwritten inline with measured height */
-  border-radius: 8px;
-  background-color: rgba(0, 0, 0, 0.03);
+@media (prefers-color-scheme: light) {
+	:root[data-cgpt-virt='on'] {
+		--cgptv-surface-1: rgba(0, 0, 0, 0.04);
+		--cgptv-surface-1-hover: rgba(0, 0, 0, 0.06);
+		--cgptv-text: rgba(0, 0, 0, 0.88);
+		--cgptv-text-muted: rgba(0, 0, 0, 0.62);
+
+		--cgptv-border: rgba(0, 0, 0, 0.14);
+		--cgptv-border-strong: rgba(0, 0, 0, 0.22);
+
+		/* Light-theme role chips remain readable */
+		--cgptv-chip-assistant-bg: rgba(2, 132, 199, 0.12);
+		--cgptv-chip-assistant-bd: rgba(2, 132, 199, 0.35);
+		--cgptv-chip-assistant-tx: rgb(3, 105, 161);
+
+		--cgptv-chip-user-bg: rgba(22, 163, 74, 0.12);
+		--cgptv-chip-user-bd: rgba(22, 163, 74, 0.35);
+		--cgptv-chip-user-tx: rgb(22, 101, 52);
+
+		--cgptv-chip-system-bg: rgba(71, 85, 105, 0.1);
+		--cgptv-chip-system-bd: rgba(71, 85, 105, 0.28);
+		--cgptv-chip-system-tx: rgb(30, 41, 59);
+
+		--cgptv-chip-tool-bg: rgba(245, 158, 11, 0.14);
+		--cgptv-chip-tool-bd: rgba(245, 158, 11, 0.38);
+		--cgptv-chip-tool-tx: rgb(120, 53, 15);
+
+		--cgptv-chip-other-bg: rgba(100, 116, 139, 0.12);
+		--cgptv-chip-other-bd: rgba(100, 116, 139, 0.34);
+		--cgptv-chip-other-tx: rgb(51, 65, 85);
+
+		--cgptv-chev-bg: rgba(0, 0, 0, 0.14);
+		--cgptv-chev-fg: rgba(0, 0, 0, 0.92);
+		--cgptv-chev-bg-hover: rgba(0, 0, 0, 0.22);
+
+		--cgptv-chev-detached-bg: rgba(2, 132, 199, 0.22);
+		--cgptv-chev-detached-fg: rgb(15, 23, 42);
+		--cgptv-chev-detached-bg-hover: rgba(2, 132, 199, 0.3);
+	}
 }
 
-/* Keep links/selectable behavior sane while detached. */
-:root[data-cgpt-virt="on"] .cgptv-placeholder * {
-  pointer-events: none !important;
-  user-select: none !important;
+/* ------------------------------
+   Base article context
+   ------------------------------ */
+:root[data-cgpt-virt='on'] article[data-turn-id] {
+	position: relative;
+}
+
+/* ------------------------------
+   Placeholder (collapsed turn)
+   ------------------------------ */
+:root[data-cgpt-virt='on'] .cgptv-placeholder {
+	min-height: 32px;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	gap: var(--cgptv-gap);
+
+	max-width: min(
+		var(--cgptv-line-width),
+		calc(100% - var(--cgptv-side-gap) * 2)
+	);
+	margin: 12px auto;
+	padding: var(--cgptv-pad-y) var(--cgptv-pad-x) var(--cgptv-pad-y)
+		calc(var(--cgptv-pad-x) + 4px);
+
+	border: 1px solid var(--cgptv-border);
+	border-left: none;
+	border-radius: 8px var(--cgptv-radius) var(--cgptv-radius) 8px;
+	background: var(--cgptv-surface-1);
+
+	box-sizing: border-box;
+	position: relative;
+	transition: background-color var(--cgptv-ease), border-color var(--cgptv-ease);
+}
+
+:root[data-cgpt-virt='on'] .cgptv-placeholder:hover {
+	background: var(--cgptv-surface-1-hover);
+	border-color: var(--cgptv-border-strong);
+}
+
+/* Left accent (role hint) */
+:root[data-cgpt-virt='on'] .cgptv-placeholder::before {
+	content: '';
+	position: absolute;
+	left: -1px;
+	top: -1px;
+	bottom: -1px;
+	width: 10px;
+	border-radius: var(--cgptv-radius) 0px 0px var(--cgptv-radius);
+	background: rgba(255, 255, 255, 0.15);
+}
+
+/* Role-tinted accent (where supported) */
+:root[data-cgpt-virt='on']
+	.cgptv-placeholder:has(.cgptv-chip.assistant)::before {
+	background: linear-gradient(
+		180deg,
+		rgba(56, 189, 248, 0.45),
+		rgba(56, 189, 248, 0.28)
+	);
+}
+:root[data-cgpt-virt='on'] .cgptv-placeholder:has(.cgptv-chip.user)::before {
+	background: linear-gradient(
+		180deg,
+		rgba(34, 197, 94, 0.45),
+		rgba(34, 197, 94, 0.28)
+	);
+}
+
+/* ------------------------------
+   Placeholder label & meta
+   ------------------------------ */
+:root[data-cgpt-virt='on'] .cgptv-label {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--cgptv-gap);
+	color: var(--cgptv-text);
+	font: var(--cgptv-font);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+:root[data-cgpt-virt='on'] .cgptv-sep {
+	color: var(--cgptv-text-muted);
+	opacity: 0.8;
+}
+:root[data-cgpt-virt='on'] .cgptv-meta {
+	color: var(--cgptv-text-muted);
+}
+
+/* ------------------------------
+   Role chips
+   ------------------------------ */
+:root[data-cgpt-virt='on'] .cgptv-chip {
+	display: inline-flex;
+	align-items: center;
+	padding: 2px 8px;
+	border-radius: var(--cgptv-radius-pill);
+	font-size: 11px;
+	text-transform: capitalize;
+	letter-spacing: 0.2px;
+	border: 1px solid transparent;
+}
+
+:root[data-cgpt-virt='on'] .cgptv-chip.assistant {
+	background: var(--cgptv-chip-assistant-bg);
+	border-color: var(--cgptv-chip-assistant-bd);
+	color: var(--cgptv-chip-assistant-tx);
+}
+:root[data-cgpt-virt='on'] .cgptv-chip.user {
+	background: var(--cgptv-chip-user-bg);
+	border-color: var(--cgptv-chip-user-bd);
+	color: var(--cgptv-chip-user-tx);
+}
+:root[data-cgpt-virt='on'] .cgptv-chip.system {
+	background: var(--cgptv-chip-system-bg);
+	border-color: var(--cgptv-chip-system-bd);
+	color: var(--cgptv-chip-system-tx);
+}
+:root[data-cgpt-virt='on'] .cgptv-chip.tool {
+	background: var(--cgptv-chip-tool-bg);
+	border-color: var(--cgptv-chip-tool-bd);
+	color: var(--cgptv-chip-tool-tx);
+}
+:root[data-cgpt-virt='on'] .cgptv-chip.other {
+	background: var(--cgptv-chip-other-bg);
+	border-color: var(--cgptv-chip-other-bd);
+	color: var(--cgptv-chip-other-tx);
+}
+
+/* ------------------------------
+   Chevron toggle (always outside)
+   ------------------------------ */
+:root[data-cgpt-virt='on'] .cgptv-btn.cgptv-toggle {
+	position: absolute;
+	top: 40px;
+	transform: translateY(-50%);
+	left: calc(50% + (var(--cgptv-line-width) / 2) + var(--cgptv-chevron-gap));
+
+	z-index: 5;
+
+	width: 32px;
+	height: 32px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+
+	border: 1px solid transparent;
+	border-radius: var(--cgptv-radius-pill);
+	cursor: pointer;
+
+	background: var(--cgptv-chev-bg);
+	color: var(--cgptv-chev-fg);
+
+	transition: background-color var(--cgptv-ease), border-color var(--cgptv-ease),
+		color var(--cgptv-ease);
+}
+:root[data-cgpt-virt='on'] .cgptv-btn.cgptv-toggle:hover {
+	background: var(--cgptv-chev-bg-hover);
+}
+:root[data-cgpt-virt='on'] .cgptv-btn.cgptv-toggle.is-detached {
+	background: var(--cgptv-chev-detached-bg);
+	color: var(--cgptv-chev-detached-fg);
+}
+:root[data-cgpt-virt='on'] .cgptv-btn.cgptv-toggle.is-detached:hover {
+	background: var(--cgptv-chev-detached-bg-hover);
+}
+
+/* ------------------------------
+   Wrapper (attached content)
+   ------------------------------ */
+:root[data-cgpt-virt='on'] .cgptv-wrap {
+	/* Visual-neutral container by design */
+}
+
+/* ------------------------------
+   Bottom safe area for last turn
+   ------------------------------ */
+:root[data-cgpt-virt='on']
+	article[data-turn-id]:last-of-type
+	.cgptv-placeholder,
+:root[data-cgpt-virt='on'] article[data-turn-id]:last-of-type .cgptv-wrap {
+	margin-bottom: var(--cgptv-last-bottom-gap);
 }
