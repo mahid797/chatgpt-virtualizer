@@ -65,6 +65,12 @@
 
 	/* Motion */
 	--cgptv-ease: 160ms ease;
+	--cgptv-rotate-dur: 360ms;
+	--cgptv-rotate-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+	/* Pin indicator */
+	--cgptv-pin-dot: rgba(34, 197, 94, 0.95); /* green accent */
+	--cgptv-pin-ring: rgba(34, 197, 94, 0.28);
 }
 
 @media (prefers-color-scheme: light) {
@@ -260,12 +266,23 @@
 	border-radius: var(--cgptv-radius-pill);
 	cursor: pointer;
 
+	/* SVG handles visual size; avoid font scaling artifacts */
+	line-height: 0;
+
 	background: var(--cgptv-chev-bg);
 	color: var(--cgptv-chev-fg);
 
 	transition: background-color var(--cgptv-ease), border-color var(--cgptv-ease),
 		color var(--cgptv-ease);
 }
+
+/* Ensure chevron is centered inside the button */
+:root[data-cgpt-virt='on'] .cgptv-btn.cgptv-toggle {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
 :root[data-cgpt-virt='on'] .cgptv-btn.cgptv-toggle:hover {
 	background: var(--cgptv-chev-bg-hover);
 }
@@ -275,6 +292,69 @@
 }
 :root[data-cgpt-virt='on'] .cgptv-btn.cgptv-toggle.is-detached:hover {
 	background: var(--cgptv-chev-detached-bg-hover);
+}
+
+/* Pinned indicator for chevron button */
+:root[data-cgpt-virt='on'] .cgptv-btn.cgptv-toggle.is-pinned::after {
+	content: '';
+	position: absolute;
+	top: -2px;
+	right: -2px;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: var(--cgptv-pin-dot);
+	outline: 1px solid var(--cgptv-border-strong);
+}
+
+/* Focus styles for keyboard accessibility */
+:root[data-cgpt-virt='on'] .cgptv-btn.cgptv-toggle:focus {
+	outline: none;
+}
+:root[data-cgpt-virt='on'] .cgptv-btn.cgptv-toggle:focus-visible {
+	box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.15),
+		0 0 0 4px var(--cgptv-border-strong);
+}
+
+/* ===== Accessible icon toggle (no color changes) ===== */
+:root[data-cgpt-virt='on'] .cgptv-btn.cgptv-toggle .cgptv-icon {
+	width: 18px;
+	height: 18px;
+	display: block; /* avoid inline baseline quirks */
+	fill: currentColor;
+	/* For inline SVG, ensure the correct reference box for transforms */
+	transform-box: fill-box;
+	transform-origin: 50% 50%;
+	transform: rotate(0deg); /* explicit starting state */
+	will-change: transform; /* performance hint */
+	transition: transform var(--cgptv-rotate-dur) var(--cgptv-rotate-ease);
+}
+
+/* Rotate chevron when expanded (state-based, not hover) */
+:root[data-cgpt-virt='on']
+	.cgptv-btn.cgptv-toggle[aria-expanded='true']
+	.cgptv-icon {
+	transform: rotate(90deg);
+}
+
+/* Motion respect */
+@media (prefers-reduced-motion: reduce) {
+	:root[data-cgpt-virt='on'] .cgptv-btn.cgptv-toggle .cgptv-icon {
+		transition: none;
+	}
+}
+
+/* Visually hidden utility for accessible labels */
+:root[data-cgpt-virt='on'] .cgptv-visually-hidden {
+	position: absolute !important;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	white-space: nowrap;
+	border: 0;
 }
 
 /* ------------------------------

@@ -11,19 +11,13 @@
 	--text: rgba(255, 255, 255, 0.92);
 	--muted: rgba(255, 255, 255, 0.7);
 	--hint: rgba(255, 255, 255, 0.58);
-
-	/* Subtle surfaces */
 	--hover: rgba(255, 255, 255, 0.06);
-
-	--brand: #38bdf8;
-	--brand-ink: #0b1220; /* only for light backgrounds */
+	--brand: #38bdf8; /* sky */
+	--brand-ink: #0b1220; /* for light text on brand bg */
 	--brand-hover: #5ccaf9;
-
-	--accent: #22c55e;
-
+	--accent: #22c55e; /* green accent to match content */
 	color-scheme: dark;
 }
-
 @media (prefers-color-scheme: light) {
 	:root {
 		--surface: #ffffff;
@@ -34,7 +28,7 @@
 		--muted: rgba(0, 0, 0, 0.78);
 		--hint: rgba(0, 0, 0, 0.62);
 		--hover: rgba(0, 0, 0, 0.04);
-		--brand: #0b5cff; /* pleasant in light mode */
+		--brand: #0b5cff;
 		--brand-ink: #ffffff;
 		--brand-hover: #2a6cff;
 		color-scheme: light;
@@ -168,28 +162,24 @@ input[type='text']:focus {
 	outline-offset: 1px;
 }
 
-/* Hint text */
+/* Hint text and small utilities */
 .hint {
 	color: var(--hint);
 	font-size: 11px;
 }
-
-/* Utilities (remove inline styles in HTML) */
-.row.compact { margin-top: 10px; }
-.btn-nowrap { white-space: nowrap; }
+.row.compact {
+	margin-top: 10px;
+}
+.btn-nowrap {
+	white-space: nowrap;
+}
 
 /* Buttons */
 .actions {
 	display: grid;
-	grid-template-columns: 1fr;
+	grid-template-columns: repeat(2, minmax(140px, 1fr));
 	gap: 8px;
 }
-@media (min-width: 360px) {
-	.actions {
-		grid-template-columns: 1fr 1fr 1fr;
-	}
-}
-
 .btn {
 	border: 1px solid var(--border);
 	background: transparent;

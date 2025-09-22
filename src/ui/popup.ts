@@ -31,9 +31,6 @@ async function init() {
 	const btnCollapseOlder = document.getElementById(
 		'btnCollapseOlder'
 	) as HTMLButtonElement | null;
-	const btnCollapseN = document.getElementById(
-		'btnCollapseN'
-	) as HTMLButtonElement | null;
 	const keepN = document.getElementById('keepN') as HTMLInputElement | null;
 	const beforeTargetEl = document.getElementById(
 		'beforeTarget'
@@ -41,8 +38,8 @@ async function init() {
 	const btnCollapseBeforeTarget = document.getElementById(
 		'btnCollapseBeforeTarget'
 	) as HTMLButtonElement | null;
-	const btnCollapseBeforeViewport = document.getElementById(
-		'btnCollapseBeforeViewport'
+	const btnApplyKeepN = document.getElementById(
+		'btnApplyKeepN'
 	) as HTMLButtonElement | null;
 
 	// Open Chrome's shortcuts page
@@ -51,7 +48,7 @@ async function init() {
 		chrome.tabs.create({ url: 'chrome://extensions/shortcuts' });
 	});
 
-	// ---- Hydrate settings (Keep last N) ----
+	// Hydrate Keep N
 	try {
 		const s = await getSettings();
 		if (keepN) keepN.value = String(s.keepRecent ?? 8);
@@ -64,10 +61,11 @@ async function init() {
 			await setSettings({ keepRecent: n });
 		} catch {}
 	};
-	keepN?.addEventListener('change', commitKeepN);
-	keepN?.addEventListener('blur', commitKeepN);
-	keepN?.addEventListener('keydown', (e) => {
-		if ((e as KeyboardEvent).key === 'Enter') commitKeepN();
+	btnApplyKeepN?.addEventListener('click', async () => {
+		await commitKeepN(); // persist keepRecent
+		await sendAction('virt:collapseAllBut', {
+			n: clampInt(keepN?.value ?? 0, 0, 999),
+		}); // apply now
 	});
 
 	// Query background for this-tab enabled state
@@ -86,19 +84,13 @@ async function init() {
 
 	// Enable/disable action buttons to reflect tab state
 	const setActionsDisabled = (disabled: boolean) => {
-		[
-			btnExpand,
-			btnCollapseOlder,
-			btnCollapseN,
-			btnCollapseBeforeTarget,
-			btnCollapseBeforeViewport,
-		]
+		[btnExpand, btnCollapseOlder, btnCollapseBeforeTarget]
 			.filter(Boolean)
 			.forEach((b) => ((b as HTMLButtonElement).disabled = disabled));
 	};
 	setActionsDisabled(!isEnabled);
 
-	// Toggle per-tab enablement
+	// Toggle per-tab enablement (keep popup open)
 	enabled.addEventListener('change', async () => {
 		await new Promise<void>((resolve, reject) => {
 			chrome.runtime.sendMessage(
@@ -116,24 +108,15 @@ async function init() {
 			);
 		});
 		setActionsDisabled(!enabled.checked);
-		window.close();
 	});
 
-	// Existing action buttons keep working (background guards dispatch if not enabled)
 	// Actions
 	btnExpand?.addEventListener('click', async () => {
 		await sendAction('virt:expandAll');
 		window.close();
 	});
 	btnCollapseOlder?.addEventListener('click', async () => {
-		await sendAction('virt:collapseOlderThanVisible');
-		window.close();
-	});
-	btnCollapseN?.addEventListener('click', async () => {
-		const n = keepN ? clampInt(keepN.value, 0, 999) : NaN;
-		await sendAction('virt:collapseAllBut', {
-			n: Number.isFinite(n) ? n : undefined,
-		});
+		await sendAction('virt:collapseBeforeViewport'); // collapse everything strictly above the first visible turn
 		window.close();
 	});
 	btnCollapseBeforeTarget?.addEventListener('click', async () => {
@@ -147,10 +130,6 @@ async function init() {
 		} else {
 			await sendAction('virt:collapseBefore', { id: v });
 		}
-		window.close();
-	});
-	btnCollapseBeforeViewport?.addEventListener('click', async () => {
-		await sendAction('virt:collapseBeforeViewport');
 		window.close();
 	});
 }

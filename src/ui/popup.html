@@ -28,7 +28,8 @@
         <label for="keepN" class="label">Keep last N turns</label>
         <div class="field-inline">
           <input id="keepN" type="number" min="0" step="1" inputmode="numeric" placeholder="8" />
-          <span class="hint">Applies immediately</span>
+          <button id="btnApplyKeepN" class="btn btn-nowrap" type="button" title="Apply N to tail policy">Apply</button>
+          <span class="hint">Keeps only the last N turns</span>
         </div>
       </div>
     </section>
@@ -40,18 +41,12 @@
           Expand all turns <span class="kbd">Ctrl/Cmd+Shift+9</span>
         </button>
         <button id="btnCollapseOlder" class="btn">
-          Collapse before visible <span class="kbd">Ctrl/Cmd+Shift+8</span>
-        </button>
-        <button id="btnCollapseN" class="btn primary">
-          Show last N turns
-        </button>
-        <button id="btnCollapseBeforeViewport" class="btn">
-          Collapse before viewport
+          Collapse above viewport <span class="kbd">Ctrl/Cmd+Shift+8</span>
         </button>
       </div>
 
       <div class="row compact">
-        <label for="beforeTarget" class="label">Collapse before…</label>
+        <label for="beforeTarget" class="label">Collapse above…</label>
         <div class="field-inline" style="width: 100%;">
           <input id="beforeTarget" type="text" placeholder="#23 or data-turn-id" />
           <button id="btnCollapseBeforeTarget" class="btn btn-nowrap">Collapse</button>
@@ -63,9 +58,7 @@
   </main>
 
   <footer class="foot">
-    <span class="foot-text">
-      Tip: Alt-click a chevron clears its pin.
-    </span>
+    <span class="foot-text">Tip: Shift-click a chevron to pin. Alt-click to remove the pin</span>
   </footer>
 
   <script type="module" src="popup.js"></script>
