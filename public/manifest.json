@@ -1,11 +1,14 @@
-{ 
-
+{
   "manifest_version": 3,
   "name": "ChatGPT Virtualizer",
+  "short_name": "Virtualizer",
   "version": "1.0.0",
-  "description": "Collapse/virtualize long ChatGPT conversations for a snappier UI.",
+  "description": "Virtualize long ChatGPT conversations for a snappier UI.",
   "minimum_chrome_version": "120",
-  "permissions": ["storage"],
+  "permissions": [
+    "storage",
+    "tabs"
+  ],
   "host_permissions": [
     "https://chat.openai.com/*",
     "https://chatgpt.com/*"
@@ -20,14 +23,45 @@
         "https://chat.openai.com/*",
         "https://chatgpt.com/*"
       ],
-      "js": ["content.js"],
-      "css": ["styles.css"],
+      "js": [
+        "content.js"
+      ],
+      "css": [
+        "styles.css"
+      ],
       "run_at": "document_idle"
     }
   ],
+  "icons": {
+    "16": "assets/icon.png",
+    "32": "assets/icon.png",
+    "48": "assets/icon.png",
+    "128": "assets/icon.png"
+  },
   "action": {
     "default_title": "ChatGPT Virtualizer",
-    "default_popup": "popup.html"
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "assets/icon.png",
+      "32": "assets/icon.png",
+      "48": "assets/icon.png",
+      "128": "assets/icon.png"
+    }
+  },
+  "commands": {
+    "virt_expand_all": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+9",
+        "mac": "Command+Shift+9"
+      },
+      "description": "Expand all turns"
+    },
+    "virt_collapse_older_than_visible": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+8",
+        "mac": "Command+Shift+8"
+      },
+      "description": "Collapse earlier than first visible turn"
+    }
   }
 }
-
