@@ -5,16 +5,9 @@
   "main": "dist/background.js",
   "type": "module",
   "scripts": {
-    "clean": "rimraf dist",
-    "copy:static": "node ./scripts/copy-static.mjs",
-    "build": "run-s clean build:ts copy:static",
-    "build:ts": "tsup",
-    "dev": "run-s clean copy:static && run-p dev:ts dev:static",
-    "dev:ts": "tsup --watch --sourcemap",
-    "dev:static": "chokidar \"public/manifest.json\" \"src/ui/**/*.{html,css}\" \"src/content/styles.css\" \"assets/**/*\" -c \"npm run copy:static\"",
-    "typecheck": "tsc --noEmit",
-    "check": "run-s typecheck",
-    "prepare": "npm run build"
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [
     "chrome-extension",
@@ -26,9 +19,6 @@
   "devDependencies": {
     "@types/chrome": "^0.1.12",
     "@types/node": "^24.5.2",
-    "chokidar-cli": "^3.0.0",
-    "npm-run-all": "^4.1.5",
-    "rimraf": "^5.0.5",
     "tsup": "^8.5.0",
     "typescript": "^5.9.2"
   },
