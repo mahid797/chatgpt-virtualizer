@@ -1,0 +1,32 @@
+{
+  "name": "chatgpt-virtualizer",
+  "version": "1.0.0",
+  "description": "Chrome MV3 Extension with TypeScript and tsup",
+  "main": "dist/background.js",
+  "type": "module",
+  "scripts": {
+    "clean": "powershell -NoProfile -Command \"if (Test-Path dist) { Remove-Item -Recurse -Force dist }\"",
+    "build": "tsup && npm run postbuild",
+    "postbuild": "powershell -NoProfile -Command \"Copy-Item 'public\\manifest.json' 'dist\\' -Force; if (Test-Path 'src\\ui\\popup.html') { Copy-Item 'src\\ui\\popup.html' 'dist\\' -Force }; if (Test-Path 'src\\ui\\popup.css') { Copy-Item 'src\\ui\\popup.css' 'dist\\' -Force }; if (Test-Path 'src\\content\\styles.css') { Copy-Item 'src\\content\\styles.css' 'dist\\' -Force }\"",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "chrome-extension",
+    "manifest-v3",
+    "typescript"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/chrome": "^0.1.12",
+    "@types/node": "^24.5.2",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.2"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=18.17"
+  },
+  "browserslist": "last 2 Chrome versions"
+}
