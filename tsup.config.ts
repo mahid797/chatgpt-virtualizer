@@ -19,6 +19,20 @@ export default defineConfig((opts) => ({
 		const fs = await import('fs');
 		const path = await import('path');
 
+		// Asset validation: manifest.json depends on assets/icon.png at build time
+		const assetsDir = 'assets';
+		const requiredIcon = path.join(assetsDir, 'icon.png');
+
+		if (!fs.existsSync(requiredIcon)) {
+			console.error(
+				`❌ Build failed: Required icon file '${requiredIcon}' is missing.`
+			);
+			console.error(
+				`   The manifest.json references this file and the extension will not load without it.`
+			);
+			process.exit(1);
+		}
+
 		// Ensure dist directory exists
 		fs.mkdirSync('dist', { recursive: true });
 
@@ -37,7 +51,7 @@ export default defineConfig((opts) => ({
 		});
 
 		// Copy assets directory recursively (if present)
-		const srcAssets = 'assets';
+		const srcAssets = assetsDir;
 		if (fs.existsSync(srcAssets)) {
 			const destAssets = path.join('dist', 'assets');
 			fs.mkdirSync(destAssets, { recursive: true });
@@ -55,6 +69,10 @@ export default defineConfig((opts) => ({
 				}
 			};
 			copyDir(srcAssets, destAssets);
+		} else {
+			console.warn(
+				`⚠️  Warning: '${srcAssets}' folder not found. Static assets will not be copied.`
+			);
 		}
 	},
 }));
