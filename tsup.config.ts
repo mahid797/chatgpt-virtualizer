@@ -35,5 +35,26 @@ export default defineConfig((opts) => ({
 				fs.copyFileSync(src, dest);
 			}
 		});
+
+		// Copy assets directory recursively (if present)
+		const srcAssets = 'assets';
+		if (fs.existsSync(srcAssets)) {
+			const destAssets = path.join('dist', 'assets');
+			fs.mkdirSync(destAssets, { recursive: true });
+
+			const copyDir = (src: string, dest: string) => {
+				for (const entry of fs.readdirSync(src, { withFileTypes: true })) {
+					const s = path.join(src, entry.name);
+					const d = path.join(dest, entry.name);
+					if (entry.isDirectory()) {
+						fs.mkdirSync(d, { recursive: true });
+						copyDir(s, d);
+					} else {
+						fs.copyFileSync(s, d);
+					}
+				}
+			};
+			copyDir(srcAssets, destAssets);
+		}
 	},
 }));
