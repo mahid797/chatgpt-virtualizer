@@ -8,14 +8,66 @@
 </head>
 
 <body>
-  <main>
-    <h1>Virtualizer</h1>
-    <label class="row">
+  <header class="topbar">
+    <img class="logo-img" src="assets/icon.png" alt="ChatGPT Virtualizer" />
+    <div class="title">
+      <h1>ChatGPT Virtualizer</h1>
+      <p class="sub">Keep long threads snappy</p>
+    </div>
+    <a id="openShortcuts" class="toolbar-link" href="#" title="Manage keyboard shortcuts">Shortcuts</a>
+    <label class="switch" title="Enable on this tab">
       <input id="enabled" type="checkbox" />
-      <span>Enable virtualization</span>
+      <span class="slider"></span>
     </label>
-    <p class="hint">Takes effect instantly on open chats.</p>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>Behavior</h2>
+      <div class="row">
+        <label for="keepN" class="label">Keep last N turns</label>
+        <div class="field-inline">
+          <input id="keepN" type="number" min="0" step="1" inputmode="numeric" placeholder="8" />
+          <span class="hint">Applies immediately</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Bulk actions</h2>
+      <div class="actions">
+        <button id="btnExpand" class="btn">
+          Expand all turns <span class="kbd">Ctrl/Cmd+Shift+9</span>
+        </button>
+        <button id="btnCollapseOlder" class="btn">
+          Collapse before visible <span class="kbd">Ctrl/Cmd+Shift+8</span>
+        </button>
+        <button id="btnCollapseN" class="btn primary">
+          Show last N turns
+        </button>
+        <button id="btnCollapseBeforeViewport" class="btn">
+          Collapse before viewport
+        </button>
+      </div>
+
+      <div class="row compact">
+        <label for="beforeTarget" class="label">Collapse before…</label>
+        <div class="field-inline" style="width: 100%;">
+          <input id="beforeTarget" type="text" placeholder="#23 or data-turn-id" />
+          <button id="btnCollapseBeforeTarget" class="btn btn-nowrap">Collapse</button>
+        </div>
+      </div>
+
+      <p class="hint" style="margin-top:8px;">Actions target the active ChatGPT tab only.</p>
+    </section>
   </main>
+
+  <footer class="foot">
+    <span class="foot-text">
+      Tip: Alt-click a chevron clears its pin.
+    </span>
+  </footer>
+
   <script type="module" src="popup.js"></script>
 </body>
 
