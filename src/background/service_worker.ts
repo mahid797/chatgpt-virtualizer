@@ -138,7 +138,7 @@ chrome.commands?.onCommand.addListener(async (command) => {
 		} else if (command === 'virt_collapse_older_than_visible') {
 			await sendToTab(tab.id!, {
 				__cgptVirt: true,
-				type: 'virt:collapseOlderThanVisible',
+				type: 'virt:collapseBeforeViewport',
 			});
 		}
 	} catch (e) {

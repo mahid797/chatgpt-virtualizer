@@ -85,6 +85,7 @@ async function boot() {
 					handle?.expandAll();
 					break;
 				case 'virt:collapseOlderThanVisible':
+					// TODO: remove alias once background is migrated everywhere
 					handle?.collapseOlderThanVisible();
 					break;
 				case 'virt:collapseAllBut':
