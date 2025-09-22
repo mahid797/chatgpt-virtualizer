@@ -1,5 +1,5 @@
 ﻿# ChatGPT Virtualizer (personal MV3 extension)
-Local-only Chrome extension that collapses/virtualizes long ChatGPT conversations.  
+Local-only Chrome extension that collapses/virtualizes long ChatGPT conversations.
 This repo uses TypeScript + tsup (esbuild) and targets MV3 with a module service worker.
 
 ## Quick start
@@ -34,3 +34,4 @@ This repo uses TypeScript + tsup (esbuild) and targets MV3 with a module service
 ## Troubleshooting
 - Delete `dist/` with `npm run clean` if stale files appear in Chrome.
 - Ensure Chrome is on a recent stable build so MV3 module service workers stay active.
+
