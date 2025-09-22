@@ -1,4 +1,17 @@
-/* Applied when virtualization is enabled. Real rules come later. */
+/* Base hook — toggled by content script. */
 :root[data-cgpt-virt="on"] {
-  /* Acts as a feature flag for upcoming CSS-based collapsed states. */
+  /* Feature flag present when virtualization is running */
+}
+
+/* Placeholder appearance for detached turns (kept conservative by default). */
+:root[data-cgpt-virt="on"] .cgptv-placeholder {
+  height: 64px; /* will be overwritten inline with measured height */
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+/* Keep links/selectable behavior sane while detached. */
+:root[data-cgpt-virt="on"] .cgptv-placeholder * {
+  pointer-events: none !important;
+  user-select: none !important;
 }

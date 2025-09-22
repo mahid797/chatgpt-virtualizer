@@ -1,4 +1,7 @@
+import type { Settings } from "../common/constants";
 import { getSettings, onSettingsChanged } from "../common/storage";
+import { startVirtualizer, type VirtualizerHandle } from "./virtualization";
+import { injectDebugStyles } from "./injector";
 
 function applyEnabledState(enabled: boolean) {
   const root = document.documentElement;
@@ -9,16 +12,42 @@ function applyEnabledState(enabled: boolean) {
   }
 }
 
+let handle: VirtualizerHandle | null = null;
+let current: Settings | null = null;
+
 async function boot() {
-  // Apply current setting on load
-  const { enabled } = await getSettings();
-  applyEnabledState(enabled);
+  current = await getSettings();
 
-  // React to future toggles from the popup
-  onSettingsChanged((next) => applyEnabledState(next.enabled));
+  // Optional: lightweight debug visuals
+  if (current.debug) injectDebugStyles();
 
-  // Placeholder hooks; real virtualization comes later
-  // (observer.ts / virtualization.ts will subscribe to enabled state)
+  applyEnabledState(current.enabled);
+
+  if (current.enabled) {
+    handle = startVirtualizer(current);
+  }
+
+  // React to future changes
+  onSettingsChanged((next) => {
+    const wasEnabled = !!current?.enabled;
+    current = next;
+
+    if (next.debug) injectDebugStyles();
+    applyEnabledState(next.enabled);
+
+    if (next.enabled && !wasEnabled) {
+      // turn on
+      handle?.destroy();
+      handle = startVirtualizer(next);
+    } else if (!next.enabled && wasEnabled) {
+      // turn off
+      handle?.destroy();
+      handle = null;
+    } else if (next.enabled && handle) {
+      // live-tune parameters (keepRecent, overscan, minPlaceholderHeight, debug)
+      handle.updateSettings(next);
+    }
+  });
 }
 
 boot().catch(console.error);
