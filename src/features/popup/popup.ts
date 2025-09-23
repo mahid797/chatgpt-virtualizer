@@ -43,7 +43,7 @@ async function init() {
 	const enabled = document.getElementById('enabled') as HTMLInputElement;
 	const openShortcuts = document.getElementById(
 		'openShortcuts'
-	) as HTMLAnchorElement;
+	) as HTMLButtonElement;
 
 	const btnExpand = document.getElementById(
 		'btnExpand'

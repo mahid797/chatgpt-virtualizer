@@ -1,0 +1,111 @@
+/* ------------------------------
+   Theme tokens (Dark baseline)
+   ------------------------------ */
+:root[data-cgpt-virt='on'] {
+	/* Surfaces & text */
+	--cgptv-surface-1: rgba(255, 255, 255, 0.05);
+	--cgptv-surface-1-hover: rgba(255, 255, 255, 0.08);
+	--cgptv-text: rgba(255, 255, 255, 0.9);
+	--cgptv-text-muted: rgba(255, 255, 255, 0.65);
+
+	/* Borders */
+	--cgptv-border: rgba(255, 255, 255, 0.12);
+	--cgptv-border-strong: rgba(255, 255, 255, 0.2);
+
+	/* Role accents (subtle chip tints) */
+	--cgptv-chip-assistant-bg: rgba(56, 189, 248, 0.14);
+	--cgptv-chip-assistant-bd: rgba(56, 189, 248, 0.38);
+	--cgptv-chip-assistant-tx: rgb(161, 231, 255);
+
+	--cgptv-chip-user-bg: rgba(34, 197, 94, 0.14);
+	--cgptv-chip-user-bd: rgba(34, 197, 94, 0.38);
+	--cgptv-chip-user-tx: rgb(187, 247, 208);
+
+	--cgptv-chip-system-bg: rgba(148, 163, 184, 0.16);
+	--cgptv-chip-system-bd: rgba(148, 163, 184, 0.38);
+	--cgptv-chip-system-tx: rgb(226, 232, 240);
+
+	--cgptv-chip-tool-bg: rgba(250, 204, 21, 0.16);
+	--cgptv-chip-tool-bd: rgba(250, 204, 21, 0.4);
+	--cgptv-chip-tool-tx: rgb(255, 229, 127);
+
+	--cgptv-chip-other-bg: rgba(148, 163, 184, 0.16);
+	--cgptv-chip-other-bd: rgba(148, 163, 184, 0.38);
+	--cgptv-chip-other-tx: rgb(203, 213, 225);
+
+	/* Chevron (toggle) states */
+	--cgptv-chev-bg: rgba(72, 225, 125, 0.18); /* attached (expanded) */
+	--cgptv-chev-fg: rgba(255, 255, 255);
+	--cgptv-chev-bg-hover: rgba(72, 225, 125, 0.26);
+
+	--cgptv-chev-detached-bg: rgba(56, 189, 248, 0.22); /* detached (collapsed) */
+	--cgptv-chev-detached-fg: rgba(235, 248, 255);
+	--cgptv-chev-detached-bg-hover: rgba(56, 189, 248, 0.3);
+
+	/* Layout */
+	--cgptv-line-width: 820px;
+	--cgptv-side-gap: clamp(16px, 6vw, 120px);
+	--cgptv-last-bottom-gap: clamp(72px, 10vh, 160px);
+	--cgptv-chevron-gap: 10px;
+
+	/* Sizing & rhythm */
+	--cgptv-radius: 12px;
+	--cgptv-radius-pill: 999px;
+	--cgptv-pad-y: 16px;
+	--cgptv-pad-x: 20px;
+	--cgptv-gap: 10px;
+
+	/* Typography */
+	--cgptv-font: 12px/1.2 ui-sans-serif, system-ui, -apple-system, Segoe UI,
+		Roboto, Arial;
+
+	/* Motion */
+	--cgptv-ease: 160ms ease;
+	--cgptv-rotate-dur: 360ms;
+	--cgptv-rotate-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+	/* Pin indicator */
+	--cgptv-pin-dot: rgba(34, 197, 94, 0.95); /* green accent */
+	--cgptv-pin-ring: rgba(34, 197, 94, 0.28);
+}
+
+@media (prefers-color-scheme: light) {
+	:root[data-cgpt-virt='on'] {
+		--cgptv-surface-1: rgba(0, 0, 0, 0.04);
+		--cgptv-surface-1-hover: rgba(0, 0, 0, 0.06);
+		--cgptv-text: rgba(0, 0, 0, 0.88);
+		--cgptv-text-muted: rgba(0, 0, 0, 0.62);
+
+		--cgptv-border: rgba(0, 0, 0, 0.14);
+		--cgptv-border-strong: rgba(0, 0, 0, 0.22);
+
+		/* Light-theme role chips remain readable */
+		--cgptv-chip-assistant-bg: rgba(2, 132, 199, 0.12);
+		--cgptv-chip-assistant-bd: rgba(2, 132, 199, 0.35);
+		--cgptv-chip-assistant-tx: rgb(3, 105, 161);
+
+		--cgptv-chip-user-bg: rgba(22, 163, 74, 0.12);
+		--cgptv-chip-user-bd: rgba(22, 163, 74, 0.35);
+		--cgptv-chip-user-tx: rgb(22, 101, 52);
+
+		--cgptv-chip-system-bg: rgba(71, 85, 105, 0.1);
+		--cgptv-chip-system-bd: rgba(71, 85, 105, 0.28);
+		--cgptv-chip-system-tx: rgb(30, 41, 59);
+
+		--cgptv-chip-tool-bg: rgba(245, 158, 11, 0.14);
+		--cgptv-chip-tool-bd: rgba(245, 158, 11, 0.38);
+		--cgptv-chip-tool-tx: rgb(120, 53, 15);
+
+		--cgptv-chip-other-bg: rgba(100, 116, 139, 0.12);
+		--cgptv-chip-other-bd: rgba(100, 116, 139, 0.34);
+		--cgptv-chip-other-tx: rgb(51, 65, 85);
+
+		--cgptv-chev-bg: rgba(0, 0, 0, 0.14);
+		--cgptv-chev-fg: rgba(0, 0, 0, 0.92);
+		--cgptv-chev-bg-hover: rgba(0, 0, 0, 0.22);
+
+		--cgptv-chev-detached-bg: rgba(2, 132, 199, 0.22);
+		--cgptv-chev-detached-fg: rgb(15, 23, 42);
+		--cgptv-chev-detached-bg-hover: rgba(2, 132, 199, 0.3);
+	}
+}

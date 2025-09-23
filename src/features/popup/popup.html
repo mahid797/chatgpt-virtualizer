@@ -4,6 +4,8 @@
 <head>
   <meta charset="utf-8" />
   <title>ChatGPT Virtualizer</title>
+  <link rel="stylesheet" href="tokens.core.css" />
+  <link rel="stylesheet" href="tokens.popup.css" />
   <link rel="stylesheet" href="popup.css" />
 </head>
 
@@ -14,7 +16,9 @@
       <h1>ChatGPT Virtualizer</h1>
       <p class="sub">Keep long threads snappy</p>
     </div>
-    <a id="openShortcuts" class="toolbar-link" href="#" title="Manage keyboard shortcuts">Shortcuts</a>
+    <button id="openShortcuts" class="btn" data-variant="ghost" title="Manage keyboard shortcuts">
+      <span class="btn__label">Shortcuts</span>
+    </button>
     <label class="switch" title="Enable on this tab">
       <input id="enabled" type="checkbox" />
       <span class="slider"></span>
@@ -27,10 +31,12 @@
       <div class="row">
         <label for="keepN" class="label">Always keep the last</label>
         <div class="field-inline">
-          <input id="keepN" type="number" min="0" step="1" inputmode="numeric" placeholder="8" />
+          <input id="keepN" class="field" type="number" min="0" step="1" inputmode="numeric" placeholder="8" />
           <span class="suffix">turns</span>
-          <button id="btnApplyKeepN" class="btn btn-nowrap" type="button"
-            title="Save this value and immediately collapse older turns">Apply</button>
+          <button id="btnApplyKeepN" class="btn btn-nowrap" data-variant="primary" type="button"
+            title="Save this value and immediately collapse older turns">
+            <span class="btn__label">Apply</span>
+          </button>
         </div>
         <p class="help">New replies always remain visible. Pinned turns are never collapsed.</p>
       </div>
@@ -39,26 +45,29 @@
     <section class="card">
       <h2>Bulk actions</h2>
       <div class="actions">
-        <button id="btnExpand" class="btn primary"
-          title="Temporarily expand every turn in the thread. Tip: Shift-click a chevron to pin a turn so it stays open.">
-          Expand all turns <span class="kbd" data-hotkey="expand">Ctrl+Shift+9</span>
-        </button>
-        <button id="btnCollapseOlder" class="btn"
+        <button id="btnCollapseOlder" class="btn" data-variant="primary"
           title="Collapse everything that appears above the first visible message in the page right now.">
-          Collapse above viewport <span class="kbd" data-hotkey="collapse">Ctrl+Shift+8</span>
+          <span class="btn__label">Collapse above viewport</span> <span class="btn__kbd kbd"
+            data-hotkey="collapse">Ctrl+Shift+8</span>
+        </button>
+        <button id="btnExpand" class="btn" data-variant="secondary"
+          title="Temporarily expand every turn in the thread. Tip: Shift-click a chevron to pin a turn so it stays open.">
+          <span class="btn__label">Expand all turns</span> <span class="btn__kbd kbd"
+            data-hotkey="expand">Ctrl+Shift+9</span>
         </button>
       </div>
 
       <div class="row compact">
         <label for="beforeTarget" class="label">Collapse everything above…</label>
-        <div class="field-inline" style="width: 100%;">
-          <input id="beforeTarget" type="text" placeholder="Chat #"
+        <div class="field-inline u-grow">
+          <input id="beforeTarget" class="field" type="text" placeholder="Chat #"
             title="Use #number for position (1 = first turn), or paste a data-turn-id." />
-          <button id="btnCollapseBeforeTarget" class="btn btn-nowrap"
-            title="Collapse every earlier turn (above the chosen one).">Collapse</button>
+          <button id="btnCollapseBeforeTarget" class="btn btn-nowrap" data-variant="secondary"
+            title="Collapse every earlier turn (above the chosen one).">
+            <span class="btn__label">Collapse</span>
+          </button>
         </div>
-        <p class="help">Examples: <code>1</code> keeps only the very first turn expanded;
-        </p>
+        <p class="help">Examples: <code>1</code> keeps only the very first turn expanded;</p>
       </div>
 
       <p class="help">Bulk actions affect only the currently active ChatGPT tab.</p>

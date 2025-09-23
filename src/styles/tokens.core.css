@@ -1,0 +1,33 @@
+:root {
+	/* Core colors (dark baseline) */
+	--color-surface: #0f1115;
+	--color-card: #151821;
+	--color-border: rgba(255, 255, 255, 0.1);
+	--color-border-strong: rgba(255, 255, 255, 0.16);
+	--color-text: rgba(255, 255, 255, 0.92);
+	--color-muted: rgba(255, 255, 255, 0.7);
+	--color-hint: rgba(255, 255, 255, 0.58);
+	--color-hover: rgba(255, 255, 255, 0.06);
+	--color-brand: #0f86bd;
+	--color-brand-hover: #018eca;
+	--color-brand-ink: #0b1220;
+	--color-accent: #22c55e;
+}
+
+@media (prefers-color-scheme: light) {
+	:root {
+		/* Core colors (light overrides) */
+		--color-surface: #ffffff;
+		--color-card: #fafafa;
+		--color-border: rgba(0, 0, 0, 0.12);
+		--color-border-strong: rgba(0, 0, 0, 0.18);
+		--color-text: rgba(0, 0, 0, 0.9);
+		--color-muted: rgba(0, 0, 0, 0.78);
+		--color-hint: rgba(0, 0, 0, 0.62);
+		--color-hover: rgba(0, 0, 0, 0.04);
+		--color-brand: #0b5cff;
+		--color-brand-hover: #2a6cff;
+		--color-brand-ink: #ffffff;
+		--color-accent: #22c55e;
+	}
+}

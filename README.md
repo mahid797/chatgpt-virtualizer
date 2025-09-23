@@ -85,19 +85,19 @@ Open the extension popup from the Chrome toolbar:
 
 Each turn has a small circular chevron button pinned to the right:
 
-| Action | Behavior |
-|--------|----------|
-| **Click** | Toggle expand/collapse for that turn |
+| Action          | Behavior                             |
+| --------------- | ------------------------------------ |
+| **Click**       | Toggle expand/collapse for that turn |
 | **Shift+Click** | **Pin** the turn to keep it expanded |
-| **Alt+Click** | Clear the pin |
+| **Alt+Click**   | Clear the pin                        |
 
 > 📌 Pinned turns are respected by tail policy and bulk operations
 
 ### Keyboard Shortcuts
 
-| Shortcut | Action |
-|----------|--------|
-| `Ctrl/Cmd + Shift + 9` | Expand all turns |
+| Shortcut               | Action                  |
+| ---------------------- | ----------------------- |
+| `Ctrl/Cmd + Shift + 9` | Expand all turns        |
 | `Ctrl/Cmd + Shift + 8` | Collapse above viewport |
 
 Customize these in `chrome://extensions/shortcuts`
@@ -108,11 +108,11 @@ Customize these in `chrome://extensions/shortcuts`
 
 Settings are stored via `chrome.storage.local` and merged with defaults:
 
-| Setting | Type | Default | Description |
-|---------|------|---------|-------------|
-| `keepRecent` | number | `3` | Always keep the last N turns expanded |
-| `minPlaceholderHeight` | number | `64` | Minimum height (px) for collapsed turns |
-| `debug` | boolean | `false` | Adds subtle debug styles when enabled |
+| Setting                | Type    | Default | Description                             |
+| ---------------------- | ------- | ------- | --------------------------------------- |
+| `keepRecent`           | number  | `3`     | Always keep the last N turns expanded   |
+| `minPlaceholderHeight` | number  | `64`    | Minimum height (px) for collapsed turns |
+| `debug`                | boolean | `false` | Adds subtle debug styles when enabled   |
 
 Per-tab enablement is kept in session storage, surviving service worker restarts within a browser session.
 
@@ -178,11 +178,11 @@ src/
 
 ### Build Commands
 
-| Command | Description |
-|---------|-------------|
-| `npm run build` | Production build to `dist/` |
-| `npm run dev` | Watch mode for development |
-| `npm run typecheck` | TypeScript type checking |
+| Command             | Description                 |
+| ------------------- | --------------------------- |
+| `npm run build`     | Production build to `dist/` |
+| `npm run dev`       | Watch mode for development  |
+| `npm run typecheck` | TypeScript type checking    |
 
 ### Architecture Highlights
 
