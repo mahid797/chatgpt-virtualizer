@@ -39,9 +39,12 @@ export default defineConfig((opts) => ({
 		// Copy static files
 		const files = [
 			['public/manifest.json', 'dist/manifest.json'],
-			['src/features/popup/popup.html', 'dist/popup.html'],
-			['src/features/popup/popup.css', 'dist/popup.css'],
 			['src/content/styles.css', 'dist/styles.css'],
+			['src/styles/tokens.core.css', 'dist/tokens.core.css'],
+			['src/styles/tokens.content.css', 'dist/tokens.content.css'],
+			['src/features/popup/popup.html', 'dist/popup.html'],
+			['src/styles/tokens.popup.css', 'dist/tokens.popup.css'],
+			['src/features/popup/popup.css', 'dist/popup.css'],
 		];
 
 		files.forEach(([src, dest]) => {

@@ -1,0 +1,106 @@
+:root {
+	--popup-surface: var(--color-surface);
+	--popup-card: var(--color-card);
+	--popup-text: var(--color-text);
+	--popup-muted: var(--color-muted);
+	--popup-hint: var(--color-hint);
+	--popup-hover: var(--color-hover);
+	--popup-border: var(--color-border);
+	--popup-border-strong: var(--color-border-strong);
+	--popup-brand: var(--color-brand);
+	--popup-brand-hover: var(--color-brand-hover);
+	--popup-brand-ink: var(--color-brand-ink);
+	--popup-accent: var(--color-accent);
+
+	/* Buttons (base) */
+	--btn-fg: var(--popup-text);
+	--btn-bg: transparent;
+	--btn-border: var(--popup-border);
+	--btn-hover-bg: color-mix(in oklab, var(--btn-bg), var(--popup-text) 10%);
+	--btn-radius: 10px;
+	--btn-pad-y: 8px;
+	--btn-pad-x: 10px;
+	--btn-disabled-opacity: 0.55;
+
+	/* Buttons (primary) */
+	--btn-primary-bg: var(--popup-brand);
+	--btn-primary-fg: var(--popup-text);
+	--btn-primary-border: var(--popup-brand-hover);
+	--btn-primary-hover-bg: color-mix(
+		in oklab,
+		var(--btn-primary-bg),
+		var(--popup-text) 10%
+	);
+
+	/* Inputs / fields */
+	--field-fg: var(--popup-text);
+	--field-bg: transparent;
+	--field-border: var(--popup-border);
+	--field-hover-bg: color-mix(in oklab, var(--field-bg), var(--popup-text) 7%);
+	--field-focus-ring: var(--popup-brand);
+	--field-radius: 8px;
+	--field-pad-y: 6px;
+	--field-pad-x: 8px;
+	--field-max-w: 120px;
+
+	/* Card */
+	--card-bg: var(--popup-card);
+	--card-border: color-mix(in oklab, var(--popup-border), var(--popup-text) 5%);
+	--card-radius: 12px;
+	--card-pad: 12px;
+	--card-gap-y: 10px;
+
+	/* Elevation */
+	--elevation-1: 0 6px 16px color-mix(in oklab, black, transparent 90%);
+
+	/* KBD chip */
+	--chip-bg: transparent;
+	--chip-fg: var(--popup-text);
+	--chip-border: var(--popup-border-strong);
+	--chip-radius: 6px;
+	--chip-font-size: 11px;
+	--chip-margin: 10px;
+
+	/* Switch (toggle) */
+	--switch-width: 42px;
+	--switch-height: 22px;
+	--switch-track-bg: var(--popup-border);
+	--switch-track-checked-bg: var(--popup-brand);
+	--switch-thumb-bg: #fff;
+	--switch-thumb-size: 16px;
+	--switch-thumb-translate: 20px;
+	--switch-transition: var(--dur-1) var(--ease-1);
+	--switch-thumb-transition: var(--dur-1) var(--ease-1);
+
+	/* Toolbar link (used by ghost button colors) */
+	--link-fg: var(--popup-brand);
+	--link-border: var(--popup-border);
+	--link-hover-bg: color-mix(in oklab, var(--popup-hover), transparent 10%);
+	--link-radius: 8px;
+	--link-font-size: 11px;
+
+	/* Scale Tokens */
+	--space-1: 4px;
+	--space-2: 8px;
+	--space-3: 12px;
+	--space-4: 16px;
+	--space-5: 20px;
+	--space-6: 24px;
+
+	--r-1: 6px;
+	--r-2: 8px;
+	--r-3: 10px;
+	--r-4: 12px;
+
+	--dur-1: 160ms;
+	--ease-1: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+	--popup-w: 480px;
+
+	/* Type ramp */
+	--fs-sm: 11px;
+	--fs-md: 13px;
+	--fs-lg: 15px;
+	--lh-tight: 1.2;
+	--lh-normal: 1.45;
+}
