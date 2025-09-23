@@ -71,7 +71,7 @@ export function deepClone<T>(obj: T): T {
 	if (typeof obj === 'object') {
 		const cloned: any = {};
 		for (const key in obj) {
-			if (obj.hasOwnProperty(key)) {
+			if (Object.prototype.hasOwnProperty.call(obj, key)) {
 				cloned[key] = deepClone(obj[key]);
 			}
 		}
@@ -84,7 +84,7 @@ export function deepClone<T>(obj: T): T {
  * Generate a unique ID
  */
 export function generateId(prefix = 'id'): string {
-	return `${prefix}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+	return `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2, 11)}`;
 }
 
 /**
@@ -149,7 +149,7 @@ export function deepMerge<T extends Record<string, any>>(
 	const result = deepClone(target);
 
 	for (const key in source) {
-		if (source.hasOwnProperty(key)) {
+		if (Object.prototype.hasOwnProperty.call(source, key)) {
 			const sourceValue = source[key];
 			const targetValue = result[key];
 

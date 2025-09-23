@@ -23,42 +23,50 @@
 
   <main>
     <section class="card">
-      <h2>Behavior</h2>
+      <h2>Auto-collapse rules</h2>
       <div class="row">
-        <label for="keepN" class="label">Keep last N turns</label>
+        <label for="keepN" class="label">Always keep the last</label>
         <div class="field-inline">
           <input id="keepN" type="number" min="0" step="1" inputmode="numeric" placeholder="8" />
-          <button id="btnApplyKeepN" class="btn btn-nowrap" type="button" title="Apply N to tail policy">Apply</button>
-          <span class="hint">Keeps only the last N turns</span>
+          <span class="suffix">turns</span>
+          <button id="btnApplyKeepN" class="btn btn-nowrap" type="button"
+            title="Save this value and immediately collapse older turns">Apply</button>
         </div>
+        <p class="help">New replies always remain visible. Pinned turns are never collapsed.</p>
       </div>
     </section>
 
     <section class="card">
       <h2>Bulk actions</h2>
       <div class="actions">
-        <button id="btnExpand" class="btn">
-          Expand all turns <span class="kbd">Ctrl/Cmd+Shift+9</span>
+        <button id="btnExpand" class="btn primary"
+          title="Temporarily expand every turn in the thread. Tip: Shift-click a chevron to pin a turn so it stays open.">
+          Expand all turns <span class="kbd" data-hotkey="expand">Ctrl+Shift+9</span>
         </button>
-        <button id="btnCollapseOlder" class="btn">
-          Collapse above viewport <span class="kbd">Ctrl/Cmd+Shift+8</span>
+        <button id="btnCollapseOlder" class="btn"
+          title="Collapse everything that appears above the first visible message in the page right now.">
+          Collapse above viewport <span class="kbd" data-hotkey="collapse">Ctrl+Shift+8</span>
         </button>
       </div>
 
       <div class="row compact">
-        <label for="beforeTarget" class="label">Collapse above…</label>
+        <label for="beforeTarget" class="label">Collapse everything above…</label>
         <div class="field-inline" style="width: 100%;">
-          <input id="beforeTarget" type="text" placeholder="#23 or data-turn-id" />
-          <button id="btnCollapseBeforeTarget" class="btn btn-nowrap">Collapse</button>
+          <input id="beforeTarget" type="text" placeholder="Chat #"
+            title="Use #number for position (1 = first turn), or paste a data-turn-id." />
+          <button id="btnCollapseBeforeTarget" class="btn btn-nowrap"
+            title="Collapse every earlier turn (above the chosen one).">Collapse</button>
         </div>
+        <p class="help">Examples: <code>1</code> keeps only the very first turn expanded;
+        </p>
       </div>
 
-      <p class="hint" style="margin-top:8px;">Actions target the active ChatGPT tab only.</p>
+      <p class="help">Bulk actions affect only the currently active ChatGPT tab.</p>
     </section>
   </main>
 
   <footer class="foot">
-    <span class="foot-text">Tip: Shift-click a chevron to pin. Alt-click to remove the pin</span>
+    <span class="foot-text">Tips: Shift-click a chevron to pin (while expanded). Alt-click clears the pin.</span>
   </footer>
 
   <script type="module" src="popup.js"></script>

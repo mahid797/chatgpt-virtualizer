@@ -12,9 +12,9 @@
 	--muted: rgba(255, 255, 255, 0.7);
 	--hint: rgba(255, 255, 255, 0.58);
 	--hover: rgba(255, 255, 255, 0.06);
-	--brand: #38bdf8; /* sky */
+	--brand: #025f8b; /* sky */
 	--brand-ink: #0b1220; /* for light text on brand bg */
-	--brand-hover: #5ccaf9;
+	--brand-hover: #0074a5;
 	--accent: #22c55e; /* green accent to match content */
 	color-scheme: dark;
 }
@@ -39,7 +39,7 @@ html,
 body {
 	margin: 0;
 	padding: 0;
-	width: 360px;
+	width: 480px;
 	background: var(--surface);
 	color: var(--text);
 	font: 13px/1.45 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
@@ -177,7 +177,7 @@ input[type='text']:focus {
 /* Buttons */
 .actions {
 	display: grid;
-	grid-template-columns: repeat(2, minmax(140px, 1fr));
+	grid-template-columns: repeat(2, minmax(160px, 1fr));
 	gap: 8px;
 }
 .btn {
@@ -195,8 +195,8 @@ input[type='text']:focus {
 }
 .btn.primary {
 	background: var(--brand);
-	border-color: var(--brand);
-	color: var(--brand-ink);
+	border-color: var(--brand-hover);
+	color: var(--text);
 }
 .btn.primary:hover {
 	background: var(--brand-hover);
@@ -207,6 +207,12 @@ input[type='text']:focus {
 	cursor: not-allowed;
 }
 
+/* Space for inline “turns” suffix next to the number input (if used) */
+.suffix {
+	color: var(--muted);
+	font-size: 12px;
+}
+
 /* Small keyboard-hint chip */
 .kbd {
 	display: inline-block;
@@ -214,9 +220,9 @@ input[type='text']:focus {
 	border-radius: 6px;
 	border: 1px solid var(--border-strong);
 	background: transparent;
-	color: var(--hint);
+	color: var(--text);
 	font-size: 11px;
-	margin-left: 6px;
+	margin: 10px;
 }
 
 /* Footer */
@@ -240,4 +246,10 @@ input[type='text']:focus {
 }
 .toolbar-link:hover {
 	background: var(--hover);
+}
+.help {
+	margin: 8px 0 0;
+	color: var(--hint);
+	font-size: 11px;
+	line-height: 1.35;
 }
