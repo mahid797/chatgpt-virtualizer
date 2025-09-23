@@ -27,7 +27,10 @@
         "content.js"
       ],
       "css": [
-        "styles.css"
+        "styles.css",
+        "tokens.core.css",
+        "tokens.popup.css",
+        "tokens.content.css"
       ],
       "run_at": "document_idle"
     }
