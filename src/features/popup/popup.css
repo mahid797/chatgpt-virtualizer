@@ -57,8 +57,8 @@
 		border-bottom: 1px solid var(--popup-border);
 	}
 	.logo-img {
-		width: 20px;
-		height: 20px;
+		width: 24px;
+		height: 24px;
 		border-radius: 4px;
 	}
 
@@ -99,7 +99,21 @@
 		transform: translateX(var(--switch-thumb-translate));
 	}
 
-	/* Cards*/
+	/* Shared focus ring for accessibility */
+	.switch:focus-within .slider {
+		outline: 2px solid var(--btn-focus-ring);
+		outline-offset: 2px;
+	}
+
+	/* Tiny "press" affordance */
+	.switch:active .slider::after {
+		transform: scale(0.96);
+	}
+	.switch input:checked + .slider:active::after {
+		transform: translateX(var(--switch-thumb-translate)) scale(0.96);
+	}
+
+	/* Cards */
 	main {
 		padding: var(--space-3) var(--space-3);
 	}
@@ -113,30 +127,36 @@
 	}
 	.card h2 {
 		margin: 0 0 var(--space-2);
-		font-size: var(--fs-md);
+		font-size: var(--fs-lg);
 		font-weight: 600;
 		color: var(--popup-muted);
 		line-height: var(--lh-tight);
-		letter-spacing: 0.2px;
+		/* removed fuzzy letter-spacing */
 	}
 
 	/* Rows & fields */
 	.row {
 		display: grid;
-		grid-template-columns: 1fr auto;
-		align-items: start;
-		gap: var(--space-2);
+		grid-template-columns: var(--form-label-w) 1fr;
+		align-items: center; /* vertically center label & controls */
+		gap: var(--space-1);
 	}
 	.label {
 		color: var(--popup-text);
 		font-size: var(--fs-md);
 		line-height: var(--lh-normal);
+		white-space: nowrap;
+		padding-right: var(--space-2);
 	}
 	.field-inline {
 		display: flex;
-		align-items: baseline; /* align input + suffix */
-		gap: var(--space-2);
+		align-items: center;
+		gap: var(--space-3);
 		min-width: 0;
+	}
+
+	.field-inline .suffix {
+		margin-left: -8px;
 	}
 
 	/* Generic field */
@@ -166,8 +186,7 @@
 	.suffix {
 		color: var(--popup-muted);
 		font-size: var(--fs-sm);
-		line-height: var(--lh-tight);
-		align-self: baseline;
+		align-self: center;
 	}
 
 	/* Help */
@@ -196,12 +215,13 @@
 		white-space: nowrap;
 	}
 
-	/* Buttons (ARCH: data-variants + :where() internals) */
+	/* Buttons */
 	.actions {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
 		gap: var(--space-2);
 	}
+
 	.btn {
 		border: 1px solid var(--btn-border);
 		background: var(--btn-bg);
@@ -219,9 +239,18 @@
 			background: var(--btn-hover-bg);
 		}
 
+		/* Focus ring for keyboard nav */
+		&:focus-visible {
+			outline: 2px solid var(--btn-focus-ring);
+			outline-offset: 2px;
+		}
+
 		/* Internals with low specificity */
 		& :where(.btn__label) {
-			display: inline-block;
+			display: block;
+			flex: 1 1 auto;
+			min-width: 0;
+			text-align: center; /* centers label even when a kbd chip is present */
 		}
 		& :where(.btn__kbd) {
 			display: inline-block;
@@ -231,6 +260,7 @@
 			background: var(--chip-bg);
 			color: var(--chip-fg);
 			font-size: var(--chip-font-size);
+			margin-left: auto; /* pins chip to the right edge */
 		}
 
 		/* Variants */
@@ -244,12 +274,11 @@
 			}
 		}
 		&[data-variant='secondary'] {
-			/* same as base, explicit for clarity */
-			background: var(--btn-bg);
-			border-color: var(--btn-border);
-			color: var(--btn-fg);
+			background: var(--btn-secondary-bg);
+			border-color: var(--btn-secondary-border);
+			color: var(--btn-secondary-fg);
 			&:hover {
-				background: var(--btn-hover-bg);
+				background: var(--btn-secondary-hover-bg);
 			}
 		}
 		&[data-variant='ghost'] {
@@ -265,10 +294,13 @@
 		&:disabled {
 			opacity: var(--btn-disabled-opacity);
 			cursor: not-allowed;
+			/* keep borders/fg from looking muddy */
+			color: color-mix(in oklab, var(--btn-fg), var(--popup-text) 40%);
+			border-color: color-mix(in oklab, var(--btn-border), transparent 20%);
 		}
 	}
 
-	/* Global kbd shim (kept neutral) */
+	/* KBD (global shim) */
 	.kbd {
 		display: inline-block;
 		padding: 2px 6px;
@@ -313,5 +345,11 @@
 		.btn :where(.btn__kbd) {
 			display: none;
 		}
+	}
+
+	.actions + .row {
+		margin-top: var(--space-5);
+		padding-top: var(--space-4);
+		border-top: 1px solid var(--card-border);
 	}
 }

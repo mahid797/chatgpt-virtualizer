@@ -26,6 +26,16 @@ export function isChatUrl(url?: string | null): boolean {
 	return /^https:\/\/(chat\.openai|chatgpt)\.com\//.test(url);
 }
 
+/** Utility to show error notifications */
+function showErrorNotification(message: string): void {
+	chrome.notifications.create({
+		type: 'basic',
+		iconUrl: 'assets/icon.png', // Ensure this icon exists in your extension
+		title: 'ChatGPT Virtualizer Error',
+		message,
+	});
+}
+
 /** Get the active tab (must be a ChatGPT host or we throw). */
 export async function getActiveChatTab(): Promise<chrome.tabs.Tab> {
 	const tabs = await chrome.tabs.query({
@@ -33,8 +43,15 @@ export async function getActiveChatTab(): Promise<chrome.tabs.Tab> {
 		lastFocusedWindow: true,
 	});
 	const tab = tabs[0];
-	if (!tab?.id || !tab.url) throw new Error('No active tab');
-	if (!isChatUrl(tab.url)) throw new Error('Active tab is not a ChatGPT chat');
+	if (!tab?.id || !tab.url) {
+		showErrorNotification('No active tab found.');
+		// throw new Error('No active tab');
+	}
+	if (!isChatUrl(tab.url)) {
+		showErrorNotification('Active tab is not a ChatGPT chat.');
+		// throw new Error('Active tab is not a ChatGPT chat');
+	}
+
 	return tab;
 }
 

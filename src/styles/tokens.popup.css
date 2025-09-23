@@ -20,11 +20,12 @@
 	--btn-radius: 10px;
 	--btn-pad-y: 8px;
 	--btn-pad-x: 10px;
-	--btn-disabled-opacity: 0.55;
+	--btn-disabled-opacity: 0.58;
+	--btn-focus-ring: color-mix(in oklab, var(--popup-brand), transparent 35%);
 
 	/* Buttons (primary) */
 	--btn-primary-bg: var(--popup-brand);
-	--btn-primary-fg: var(--popup-text);
+	--btn-primary-fg: var(--popup-text); /* keep high contrast in dark */
 	--btn-primary-border: var(--popup-brand-hover);
 	--btn-primary-hover-bg: color-mix(
 		in oklab,
@@ -32,9 +33,27 @@
 		var(--popup-text) 10%
 	);
 
+	/* Buttons (secondary, accent-tinted) */
+	--btn-secondary-bg: color-mix(
+		in oklab,
+		var(--popup-accent) 18%,
+		var(--popup-card)
+	);
+	--btn-secondary-fg: var(--popup-text);
+	--btn-secondary-border: color-mix(
+		in oklab,
+		var(--popup-accent) 35%,
+		var(--popup-border)
+	);
+	--btn-secondary-hover-bg: color-mix(
+		in oklab,
+		var(--btn-secondary-bg),
+		var(--popup-text) 12%
+	);
+
 	/* Inputs / fields */
 	--field-fg: var(--popup-text);
-	--field-bg: transparent;
+	--field-bg: color-mix(in oklab, var(--popup-card), var(--popup-text) 6%);
 	--field-border: var(--popup-border);
 	--field-hover-bg: color-mix(in oklab, var(--field-bg), var(--popup-text) 7%);
 	--field-focus-ring: var(--popup-brand);
@@ -42,16 +61,17 @@
 	--field-pad-y: 6px;
 	--field-pad-x: 8px;
 	--field-max-w: 120px;
+	--form-label-w: 200px;
 
 	/* Card */
 	--card-bg: var(--popup-card);
-	--card-border: color-mix(in oklab, var(--popup-border), var(--popup-text) 5%);
+	--card-border: color-mix(in oklab, var(--popup-border), var(--popup-text) 6%);
 	--card-radius: 12px;
 	--card-pad: 12px;
 	--card-gap-y: 10px;
 
-	/* Elevation */
-	--elevation-1: 0 6px 16px color-mix(in oklab, black, transparent 90%);
+	/* Elevation: slightly stronger so it reads */
+	--elevation-1: 0 6px 16px color-mix(in oklab, black, transparent 88%);
 
 	/* KBD chip */
 	--chip-bg: transparent;
@@ -72,7 +92,7 @@
 	--switch-transition: var(--dur-1) var(--ease-1);
 	--switch-thumb-transition: var(--dur-1) var(--ease-1);
 
-	/* Toolbar link (used by ghost button colors) */
+	/* Toolbar link / ghost reference */
 	--link-fg: var(--popup-brand);
 	--link-border: var(--popup-border);
 	--link-hover-bg: color-mix(in oklab, var(--popup-hover), transparent 10%);
@@ -95,7 +115,7 @@
 	--dur-1: 160ms;
 	--ease-1: cubic-bezier(0.2, 0.8, 0.2, 1);
 
-	--popup-w: 480px;
+	--popup-w: 450px;
 
 	/* Type ramp */
 	--fs-sm: 11px;

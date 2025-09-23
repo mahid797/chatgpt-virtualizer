@@ -7,7 +7,9 @@
   "minimum_chrome_version": "120",
   "permissions": [
     "storage",
-    "tabs"
+    "tabs",
+    "notifications",
+    "activeTab"
   ],
   "host_permissions": [
     "https://chat.openai.com/*",

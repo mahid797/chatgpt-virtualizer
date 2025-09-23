@@ -33,7 +33,7 @@
         <div class="field-inline">
           <input id="keepN" class="field" type="number" min="0" step="1" inputmode="numeric" placeholder="8" />
           <span class="suffix">turns</span>
-          <button id="btnApplyKeepN" class="btn btn-nowrap" data-variant="secondary" type="button"
+          <button id="btnApplyKeepN" class="btn btn-nowrap" data-variant="primary" type="button"
             title="Save this value and immediately collapse older turns">
             <span class="btn__label">Apply</span>
           </button>
@@ -45,15 +45,15 @@
     <section class="card">
       <h2>Bulk actions</h2>
       <div class="actions">
-        <button id="btnExpand" class="btn" data-variant="primary"
-          title="Temporarily expand every turn in the thread. Tip: Shift-click a chevron to pin a turn so it stays open.">
-          <span class="btn__label">Expand all turns</span> <span class="btn__kbd kbd"
-            data-hotkey="expand">Ctrl+Shift+9</span>
-        </button>
-        <button id="btnCollapseOlder" class="btn" data-variant="secondary"
+        <button id="btnCollapseOlder" class="btn" data-variant="primary"
           title="Collapse everything that appears above the first visible message in the page right now.">
           <span class="btn__label">Collapse above viewport</span> <span class="btn__kbd kbd"
             data-hotkey="collapse">Ctrl+Shift+8</span>
+        </button>
+        <button id="btnExpand" class="btn" data-variant="secondary"
+          title="Temporarily expand every turn in the thread. Tip: Shift-click a chevron to pin a turn so it stays open.">
+          <span class="btn__label">Expand all turns</span> <span class="btn__kbd kbd"
+            data-hotkey="expand">Ctrl+Shift+9</span>
         </button>
       </div>
 
