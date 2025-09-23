@@ -1,7 +1,10 @@
-import type { Settings } from '../common/constants';
-import { getSettings, onSettingsChanged } from '../common/storage';
-import { startVirtualizer, type VirtualizerHandle } from './virtualization';
-import { injectDebugStyles } from './injector';
+import type { Settings } from '@/shared/types/settings';
+import { getSettings, onSettingsChanged } from '@/shared/storage';
+import {
+	startVirtualizer,
+	type VirtualizerHandle,
+} from '@/core/virtualization';
+import { injectDebugStyles } from '@/core/dom/styling';
 
 function applyEnabledState(enabled: boolean) {
 	const root = document.documentElement;
@@ -85,7 +88,6 @@ async function boot() {
 					handle?.expandAll();
 					break;
 				case 'virt:collapseOlderThanVisible':
-					// TODO: remove alias once background is migrated everywhere
 					handle?.collapseOlderThanVisible();
 					break;
 				case 'virt:collapseAllBut':

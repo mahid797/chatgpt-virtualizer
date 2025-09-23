@@ -1,6 +1,6 @@
-// src/content/dom-utils.ts
-import { type Settings } from '../common/constants';
-import { TurnState } from './types';
+// src/core/dom/utils.ts
+import type { Settings } from '@/shared/types/settings';
+import { TurnState } from '@/core/virtualization/types';
 
 /** Clamp placeholder height to a tiny, consistent value. */
 export function placeholderHeightPx(settings: Settings): number {

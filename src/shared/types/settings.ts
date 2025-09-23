@@ -1,13 +1,6 @@
 /**
- * Project-wide constants and shared types.
+ * Settings types - user preferences and configuration
  */
-
-export const NS = 'cgpt-virt';
-
-/** Storage keys */
-export const STORAGE_KEYS = {
-	SETTINGS: `${NS}:settings`,
-} as const;
 
 /** User-tunable options (persisted) */
 export interface Settings {
@@ -28,3 +21,6 @@ export const DEFAULT_SETTINGS: Settings = {
 	minPlaceholderHeight: 64,
 	debug: false,
 } as const;
+
+/** Partial settings for updates */
+export type SettingsUpdate = Partial<Settings>;

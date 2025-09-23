@@ -1,5 +1,5 @@
-// src/content/types.ts
-import { type TurnInfo } from './selectors';
+// src/core/virtualization/types.ts
+import type { TurnInfo } from '@/core/dom/selectors';
 
 export interface TurnState {
 	info: TurnInfo;

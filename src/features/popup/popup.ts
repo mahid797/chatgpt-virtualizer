@@ -1,5 +1,5 @@
-// src/ui/popup.ts
-import { getSettings, setSettings } from '../common/storage';
+// src/features/popup/popup.ts
+import { getSettings, setSettings } from '@/shared/storage';
 
 function sendAction(type: string, payload?: any) {
 	return new Promise<void>((resolve, reject) => {

@@ -1,7 +1,7 @@
-// src/content/turn-state-manager.ts
-import { type Settings } from '../common/constants';
-import { selectAllTurns, type TurnInfo } from './selectors';
-import { type TurnState } from './types';
+// src/core/virtualization/state-manager.ts
+import type { Settings } from '@/shared/types/settings';
+import { selectAllTurns, type TurnInfo } from '@/core/dom/selectors';
+import type { TurnState } from './types';
 import {
 	buildPlaceholder,
 	consolidateRootChildren,
@@ -9,7 +9,7 @@ import {
 	placeChevron,
 	updateButtonState,
 	wrapArticleChildrenExceptButton,
-} from './dom-utils';
+} from '@/core/dom/utils';
 
 export class TurnStateManager {
 	private states = new Map<string, TurnState>();

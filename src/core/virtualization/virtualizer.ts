@@ -1,6 +1,6 @@
-// src/content/virtualization.ts (Refactored)
-import { type Settings } from '../common/constants';
-import { TurnStateManager } from './turn-state-manager';
+// src/core/virtualization/virtualizer.ts (Refactored)
+import type { Settings } from '@/shared/types/settings';
+import { TurnStateManager } from './state-manager';
 import { BulkOperations } from './bulk-operations';
 
 export interface VirtualizerHandle {

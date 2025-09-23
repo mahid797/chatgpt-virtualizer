@@ -2,9 +2,9 @@ import { defineConfig } from 'tsup';
 
 export default defineConfig((opts) => ({
 	entry: {
-		background: 'src/background/service_worker.ts',
-		content: 'src/content/content.ts',
-		popup: 'src/ui/popup.ts',
+		background: 'src/features/background/service-worker.ts',
+		content: 'src/content/content-script.ts',
+		popup: 'src/features/popup/popup.ts',
 	},
 	format: ['esm'],
 	splitting: false,
@@ -39,8 +39,8 @@ export default defineConfig((opts) => ({
 		// Copy static files
 		const files = [
 			['public/manifest.json', 'dist/manifest.json'],
-			['src/ui/popup.html', 'dist/popup.html'],
-			['src/ui/popup.css', 'dist/popup.css'],
+			['src/features/popup/popup.html', 'dist/popup.html'],
+			['src/features/popup/popup.css', 'dist/popup.css'],
 			['src/content/styles.css', 'dist/styles.css'],
 		];
 

@@ -1,6 +1,6 @@
-// src/content/bulk-operations.ts
-import { type Settings } from '../common/constants';
-import { type TurnStateManager } from './turn-state-manager';
+// src/core/virtualization/bulk-operations.ts
+import type { Settings } from '@/shared/types/settings';
+import type { TurnStateManager } from './state-manager';
 
 export class BulkOperations {
 	constructor(
