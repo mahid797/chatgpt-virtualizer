@@ -31,7 +31,6 @@ async function setDynamicHotkeys() {
 		'.kbd[data-hotkey="collapse"]'
 	);
 
-	// Keep text consistent with manifest shortcuts
 	const mod = isMac ? 'Cmd' : 'Ctrl';
 	if (expand) expand.textContent = `${mod}+Shift+9`;
 	if (collapse) collapse.textContent = `${mod}+Shift+8`;
