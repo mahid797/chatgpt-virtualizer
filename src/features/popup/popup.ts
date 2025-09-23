@@ -1,4 +1,3 @@
-// src/features/popup/popup.ts
 import { getSettings, setSettings } from '@/shared/storage';
 
 function sendAction(type: string, payload?: any) {
@@ -18,7 +17,29 @@ function clampInt(n: any, min = 0, max = 1000): number {
 	return Math.max(min, Math.min(max, v));
 }
 
+async function setDynamicHotkeys() {
+	// Prefer Chrome API over UA sniffing for reliability
+	const platformInfo = await new Promise<chrome.runtime.PlatformInfo>(
+		(resolve) => chrome.runtime.getPlatformInfo(resolve)
+	);
+	const isMac = platformInfo.os === 'mac';
+
+	const expand = document.querySelector<HTMLSpanElement>(
+		'.kbd[data-hotkey="expand"]'
+	);
+	const collapse = document.querySelector<HTMLSpanElement>(
+		'.kbd[data-hotkey="collapse"]'
+	);
+
+	// Keep text consistent with manifest shortcuts
+	const mod = isMac ? 'Cmd' : 'Ctrl';
+	if (expand) expand.textContent = `${mod}+Shift+9`;
+	if (collapse) collapse.textContent = `${mod}+Shift+8`;
+}
+
 async function init() {
+	await setDynamicHotkeys();
+
 	// Elements
 	const enabled = document.getElementById('enabled') as HTMLInputElement;
 	const openShortcuts = document.getElementById(
