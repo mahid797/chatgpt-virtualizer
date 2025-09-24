@@ -11,6 +11,7 @@
 	--popup-brand-hover: var(--color-brand-hover);
 	--popup-brand-ink: var(--color-brand-ink);
 	--popup-accent: var(--color-accent);
+	--popup-accent-muted: var(--color-accent-muted);
 
 	/* Buttons (base) */
 	--btn-fg: var(--popup-text);
@@ -58,8 +59,9 @@
 	--field-hover-bg: color-mix(in oklab, var(--field-bg), var(--popup-text) 7%);
 	--field-focus-ring: var(--popup-brand);
 	--field-radius: 8px;
-	--field-pad-y: 6px;
-	--field-pad-x: 8px;
+	--field-pad-y: 9px; /* taller input */
+	--field-pad-x: 12px; /* roomier sides */
+	--field-font-size: var(--fs-lg); /* 15px input & placeholder */
 	--field-max-w: 120px;
 	--form-label-w: 200px;
 
@@ -118,7 +120,8 @@
 	--popup-w: 450px;
 
 	/* Type ramp */
-	--fs-sm: 11px;
+	--fs-xs: 11px;
+	--fs-sm: 12px;
 	--fs-md: 13px;
 	--fs-lg: 15px;
 	--lh-tight: 1.2;
