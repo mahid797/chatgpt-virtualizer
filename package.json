@@ -1,7 +1,7 @@
 {
   "name": "chatgpt-virtualizer",
-  "version": "1.1.5",
-  "description": "Chrome MV3 Extension with TypeScript and tsup",
+  "version": "1.2.0",
+  "description": "A Chrome MV3 extension that virtualizes long ChatGPT conversations for optimal performance",
   "main": "dist/background.js",
   "type": "module",
   "scripts": {
