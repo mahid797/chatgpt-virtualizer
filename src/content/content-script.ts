@@ -106,6 +106,24 @@ async function boot() {
 				case 'virt:toggleTurn':
 					if (msg.payload?.id) handle?.toggleTurn(String(msg.payload.id));
 					break;
+				case 'virt:getStats': {
+					try {
+						const total = document.querySelectorAll(
+							'article[data-turn-id]'
+						).length;
+						const collapsed =
+							document.querySelectorAll('.cgptv-placeholder').length;
+						const visible = Math.max(0, total - collapsed);
+						const pinned = document.querySelectorAll(
+							'.cgptv-btn.cgptv-toggle.is-pinned'
+						).length;
+
+						sendResponse?.({ ok: true, stats: { total, visible, pinned } });
+					} catch (e) {
+						sendResponse?.({ ok: false, error: String(e) });
+					}
+					return true;
+				}
 			}
 			sendResponse?.({ ok: true });
 		} catch (e) {
