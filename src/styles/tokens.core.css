@@ -4,7 +4,7 @@
 	--color-card: #151821;
 	--color-border: rgba(255, 255, 255, 0.1);
 	--color-border-strong: rgba(255, 255, 255, 0.16);
-	--color-text: rgba(255, 255, 255, 0.92);
+	--color-text: rgba(255, 255, 255);
 	--color-muted: rgba(255, 255, 255, 0.7);
 	--color-hint: rgba(255, 255, 255, 0.58);
 	--color-hover: rgba(255, 255, 255, 0.06);
@@ -12,6 +12,7 @@
 	--color-brand-hover: #018eca;
 	--color-brand-ink: #0b1220;
 	--color-accent: #22c55e;
+	--color-accent-muted: #99e7b8;
 }
 
 @media (prefers-color-scheme: light) {
@@ -29,5 +30,6 @@
 		--color-brand-hover: #2a6cff;
 		--color-brand-ink: #ffffff;
 		--color-accent: #22c55e;
+		--color-accent-muted: #99e7b8;
 	}
 }

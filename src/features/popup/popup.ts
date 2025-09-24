@@ -18,11 +18,28 @@ function clampInt(n: any, min = 0, max = 1000): number {
 }
 
 async function setDynamicHotkeys() {
-	// Prefer Chrome API over UA sniffing for reliability
-	const platformInfo = await new Promise<chrome.runtime.PlatformInfo>(
-		(resolve) => chrome.runtime.getPlatformInfo(resolve)
-	);
-	const isMac = platformInfo.os === 'mac';
+	// Try MV3 API first; fall back to UA if unavailable
+	let isMac = false;
+	try {
+		if (chrome?.runtime?.getPlatformInfo) {
+			const platformInfo = await new Promise<chrome.runtime.PlatformInfo>(
+				(resolve) => chrome.runtime.getPlatformInfo(resolve)
+			);
+			isMac = platformInfo?.os === 'mac';
+		} else {
+			const plat =
+				(navigator as any).userAgentData?.platform ||
+				navigator.platform ||
+				navigator.userAgent;
+			isMac = /Mac|iPhone|iPad|iPod/i.test(plat);
+		}
+	} catch {
+		const plat =
+			(navigator as any).userAgentData?.platform ||
+			navigator.platform ||
+			navigator.userAgent;
+		isMac = /Mac|iPhone|iPad|iPod/i.test(plat);
+	}
 
 	const expand = document.querySelector<HTMLSpanElement>(
 		'.kbd[data-hotkey="expand"]'
@@ -34,6 +51,46 @@ async function setDynamicHotkeys() {
 	const mod = isMac ? 'Cmd' : 'Ctrl';
 	if (expand) expand.textContent = `${mod}+Shift+9`;
 	if (collapse) collapse.textContent = `${mod}+Shift+8`;
+}
+
+async function fetchStats(): Promise<{
+	total: number;
+	visible: number;
+	pinned: number;
+} | null> {
+	try {
+		const resp = await new Promise<any>((resolve) => {
+			chrome.runtime.sendMessage(
+				{ __cgptVirt: true, type: 'virt:getStats' },
+				(r) => {
+					// Read lastError to avoid console warning and return null safely.
+					const err = chrome.runtime.lastError;
+					if (err) return resolve(null);
+					resolve(r);
+				}
+			);
+		});
+		if (resp && resp.ok && resp.stats) {
+			return {
+				total: Number(resp.stats.total) || 0,
+				visible: Number(resp.stats.visible) || 0,
+				pinned: Number(resp.stats.pinned) || 0,
+			};
+		}
+	} catch {}
+	return null;
+}
+
+function renderStatsLine(
+	statsEl: HTMLElement | null,
+	stats: { total: number; visible: number; pinned: number } | null
+) {
+	if (!statsEl) return;
+	if (!stats) {
+		statsEl.textContent = 'Stats not available - see help for details';
+		return;
+	}
+	statsEl.textContent = `Currently visible: ${stats.visible} / ${stats.total} • Pinned: ${stats.pinned}`;
 }
 
 async function init() {
@@ -62,11 +119,48 @@ async function init() {
 		'btnApplyKeepN'
 	) as HTMLButtonElement | null;
 
+	// Help dialog elements
+	const helpBtn = document.getElementById(
+		'openHelp'
+	) as HTMLButtonElement | null;
+	const helpDialog = document.getElementById(
+		'helpDialog'
+	) as HTMLDialogElement | null;
+	const helpClose = document.getElementById(
+		'closeHelp'
+	) as HTMLButtonElement | null;
+	const statsEl = document.getElementById('statsLine');
+
 	// Open Chrome's shortcuts page
 	openShortcuts?.addEventListener('click', (e) => {
 		e.preventDefault();
 		chrome.tabs.create({ url: 'chrome://extensions/shortcuts' });
 	});
+
+	// Help dialog handlers
+	helpBtn?.addEventListener('click', (e) => {
+		e.preventDefault();
+		helpDialog?.showModal();
+	});
+
+	// ESC/Close button are handled by <dialog> natively. Also close on backdrop click.
+	helpDialog?.addEventListener('click', (ev) => {
+		if (ev.target === helpDialog) helpDialog.close();
+	});
+
+	// Stats update functionality
+	const updateStats = async () => {
+		// Only try when the tab is enabled; otherwise show dashes.
+		const enabledNow = (document.getElementById('enabled') as HTMLInputElement)
+			?.checked;
+		if (!enabledNow) return renderStatsLine(statsEl!, null);
+		const stats = await fetchStats();
+		renderStatsLine(statsEl!, stats);
+	};
+
+	await updateStats();
+	const statsTimer = window.setInterval(updateStats, 1000);
+	window.addEventListener('unload', () => window.clearInterval(statsTimer));
 
 	// Hydrate Keep N
 	try {
@@ -94,6 +188,8 @@ async function init() {
 			chrome.runtime.sendMessage(
 				{ __cgptVirt: true, type: 'virt:getTabEnabled' },
 				(resp) => {
+					const err = chrome.runtime.lastError;
+					if (err) return resolve({ ok: false, enabled: false });
 					resolve(resp || { ok: false, enabled: false });
 				}
 			);
@@ -104,11 +200,18 @@ async function init() {
 
 	// Enable/disable action buttons to reflect tab state
 	const setActionsDisabled = (disabled: boolean) => {
-		[btnExpand, btnCollapseOlder, btnCollapseBeforeTarget]
+		[btnExpand, btnCollapseOlder, beforeTargetEl, btnCollapseBeforeTarget]
 			.filter(Boolean)
 			.forEach((b) => ((b as HTMLButtonElement).disabled = disabled));
+		if (keepN) keepN.disabled = disabled;
 	};
 	setActionsDisabled(!isEnabled);
+
+	const setAutoCollapseDisabled = (disabled: boolean) => {
+		if (keepN) keepN.disabled = disabled;
+		if (btnApplyKeepN) btnApplyKeepN.disabled = disabled;
+	};
+	setAutoCollapseDisabled(!isEnabled);
 
 	// Toggle per-tab enablement (keep popup open)
 	enabled.addEventListener('change', async () => {
@@ -128,6 +231,7 @@ async function init() {
 			);
 		});
 		setActionsDisabled(!enabled.checked);
+		setAutoCollapseDisabled(!enabled.checked);
 	});
 
 	// Actions
